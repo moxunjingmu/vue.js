@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/jquery.js"></script>
+  <script>
+    function getData(url) {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url,
+          // dataType:'json',
+          success(res) {
+            // 调用then中的第一个参数
+            resolve(res)
+          },
+          error() {
+            // 调用then中的第二个参数
+            reject('请求失败 -- error')
+          }
+        })
+      })
+    }
+
+    const p1 = getData('http://127.0.0.1:3000/data')
+    const p2 = getData('http://127.0.0.1:3000/data1')
+    const p3 = getData('http://127.0.0.1:3000/data2')
+    // 获取所有的响应结果： all 一个都不能少
+    Promise.all([p1, p2, p3])
+      .then(
+        (res) => {
+          console.log(res);
+        }
+      )
+    // race：跑得快 -- 只处理最先响应的请求结果
+    Promise.race([p1, p2, p3])
+      .then(
+        (res) => {
+          console.log(res);
+        }
+      )
+  </script>
+</body>
+
+</html>

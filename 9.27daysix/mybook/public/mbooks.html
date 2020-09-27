@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .grid {
+            margin: auto;
+            width: 530px;
+            text-align: center;
+        }
+
+        .grid table {
+            border-top: 1px solid #ad7037;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed rgb(231, 174, 104);
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .grid th {
+            background-color: rgb(231, 174, 104);
+        }
+
+        .grid .book {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: rgb(231, 174, 104);
+            border-bottom: 1px solid #ad7037;
+
+        }
+
+
+        a {
+            padding: 0 3px;
+            background-color: rgb(231, 174, 104);
+            text-decoration: none;
+            border-radius: 3px;
+            color: rgb(150, 103, 43);
+        }
+
+        tbody {
+            background-color: rgb(255, 230, 184);
+        }
+
+        .total {
+            background-color: rgb(231, 174, 104);
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .tijiao {
+            padding: 0 4px;
+            border: 1px solid rgb(231, 174, 104);
+            color: chocolate;
+            border-radius: 4px;
+            background-color: rgb(235, 206, 172);
+        }
+
+        button:visited {
+            border: 1px solid rgb(231, 174, 104);
+        }
+
+        input {
+            background: rgb(252, 232, 197);
+            outline: none;
+            border: none;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div class="top">
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">
+                            编号：
+                        </label>
+                        <input type="text" id="id" v-model='id' disabled v-focus>
+                        <label for="name">
+                            名称：
+                        </label>
+                        <input type="text" id="name" v-model='name'>
+                        <span class="tijiao" @click='handle' :disabled='submitFlag'>提交</span>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <span>图书总数:</span>
+                <span>{{total}}</span>
+                <span>{{this.books.length}}</span>
+                <span>搜索: <input type="text" v-model="searchTxt"></span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr :key='item.id' v-for='item in search()'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date | format('YYYY-MM-DD HH:mm:ss')}}</td>
+                        <td>
+                            <a href="" @click.prevent='toEdit(item.id)' :style='blue'>修改</a>
+                            <span></span>
+                            <a href="" @click.prevent='deletebook(item.id)' :style="red">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/moment.js"></script>
+    <script type="text/javascript">
+        axios.defaults.baseURL = 'http://localhost:8080/'
+        axios.interceptors.response.use((res) => {
+            return res.data;
+        }, (err) => {
+            console.log(err + '请求错误！');
+        })
+        /*
+      图书管理-添加图书
+    */
+        //    自定义指令
+        Vue.directive('focus', {
+            inderted: function (el) {
+                el.focus();
+            }
+        })
+        Vue.filter('format', function (data, arg) {
+            return moment(data).format(arg)
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // 记录提交按钮的功能状态: true->修改 false->添加
+                flag: false,
+                searchTxt: '',
+                submitFlag: false,
+                red: 'color:#8b1623',
+                blue: 'color:rgb(238, 209, 155)',
+                id: '',
+                name: '',
+                books: []
+            },
+            methods: {
+                search() {
+                    return this.books.filter(item => {
+                        return item.name.indexOf(this.searchTxt) >= 0
+                    })
+                },
+                async handle() {
+                    if (this.flag) {
+                        // 编辑图书
+                        var ret = await axios.put('books/' + this.id, {
+                            name: this.name
+                        })
+                        if (ret.status === 200) {
+                            this.queryData()
+                        }
+                        this.flag = false;
+                    } else {
+                        var ret = await axios.post('books', {
+                            name: this.name
+                        })
+                        if (ret.status == 200) {
+                            this.queryData()
+                        }
+                    }
+                    // 清空表单
+                    this.id = '';
+                    this.name = '';
+                },
+                toEdit: async function (id) {
+                    // 禁止修改ID
+                    this.flag = true;
+                    // 根据id查询出图书信息
+                    let res = await axios.get('books/' + id)
+                    this.id = res.id
+                    this.name = res.name
+                },
+                async deletebook(id) {
+                    //  删除图书
+                    let res = await axios.delete('books/' + id)
+                    if (res.status === 200) {
+                        this.queryData()
+                    }
+                },
+                async queryData() {
+                    this.books = await axios.get('/books')
+                }
+            },
+            computed: {
+                total: function () {
+                    //计算图书的总数
+                    return this.books.length;
+                }
+            },
+            watch: {
+                async name(val) {
+                    var ret = await axios.get('books/book/' + this.name)
+                    console.log(ret.status);
+                    console.log(this);
+                    if (ret.status === 1) {
+                        // 图书名称存在
+                        this.submitFlag = true;
+                    } else {
+                        // 图书名称不存在
+                        this.submitFlag = false;
+                    }
+                }
+            },
+            created: function () {
+                // 该生命周期钩子函数被触发的时候，模板已经可以使用
+                //一般此时用于获取后台数据，然后把数据填充到模板
+                this.queryData()
+            }
+        });
+    </script>
+</body>
+
+</html>

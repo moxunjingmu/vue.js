@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/axios.js"></script>
+  <script>
+    /*
+      async await：简化promise执行的异步代码
+      async await 必须一起使用
+      async修饰方法
+      await修饰promise实例
+      async await可以让promise执行的代码，按照书写顺序执行
+     */
+    axios.defaults.baseURL = 'http://127.0.0.1:3000'
+
+    async function getData() {
+      console.log(1);
+      // 当await修饰的promise执行的异步函数，拿到执行结果后，后续代码才会执行
+      const { data: data1 } = await axios.get('/data1')
+      console.log(data1);
+
+      console.log(2);
+
+      const { data: data2 } = await axios.get('/data2')
+      console.log(data2);
+
+      console.log(3);
+    }
+    // 1 2 3 data2 data1
+    getData()
+  </script>
+</body>
+
+</html>

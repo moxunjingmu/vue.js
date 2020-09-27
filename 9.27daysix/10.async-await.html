@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <script src="../axios.js"></script>
+    <script>
+        axios.defaults.baseURL = 'http://localhost:5050';
+
+        async function getData() {
+            console.log(1);
+            const {
+                data: data1
+            } = await axios.get('/data1')
+            console.log(data1);
+            console.log(2);
+            const {
+                data: data2
+            } = await axios.get('/data2')
+            console.log(data2);
+            console.log(3);
+        }
+        getData()
+    </script>
+</body>
+
+</html>

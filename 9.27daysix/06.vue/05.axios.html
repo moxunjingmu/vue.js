@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/axios.js"></script>
+  <script>
+    axios.get('http://127.0.0.1:3000/books?id=axios123')
+      .then(function (res) {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    axios.get('http://127.0.0.1:3000/books', {
+      params: {
+        id: 'params -- axios'
+      }
+    })
+      .then(function (res) {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    axios({
+      url: 'http://127.0.0.1:3000/books',
+      params: {
+        id: 'params -- axios -- 3'
+      }
+    })
+      .then(function (res) {
+        console.log(res);
+        console.log(res.data);
+      })
+  </script>
+</body>
+
+</html>

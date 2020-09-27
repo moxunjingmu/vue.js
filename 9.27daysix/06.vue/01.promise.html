@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/jquery.js"></script>
+  <script>
+    function getData(url) {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url,
+          // dataType:'json',
+          success(res) {
+            // 调用then中的第一个参数
+            resolve(res)
+          },
+          error() {
+            // 调用then中的第二个参数
+            reject('请求失败 -- error')
+          }
+        })
+      })
+    }
+
+    getData('http://127.0.0.1:3000/data')
+      .then(
+        (data)=>{
+          console.log(data);
+          return getData('http://127.0.0.1:3000/data1')
+        }
+      )
+      .then(
+        (data)=>{
+          console.log(data);
+          // return getData('http://127.0.0.1:3000/data2')
+          return '第二个then回调函数的返回值'
+        }
+      )
+      .then(
+        (data)=>{
+          console.log(data);
+        }
+      )
+      // 1. 前面then的回调函数 return 发送请求promise实例，后面then的回调形参拿到的是请求结果
+      // 2. 前面then的回调函数 return 普通数据，后面then的回调形参拿到的是return的普通数据
+  </script>
+</body>
+
+</html>

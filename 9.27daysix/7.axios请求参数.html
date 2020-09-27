@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <script src="../axios.js"></script>
+    <script>
+        axios.post('http://localhost:5050/axios', {
+            uname: 'caicai',
+            pwd: 323
+
+        }).then((ret) => {
+            console.log(ret.data);
+        })
+
+        let params = new URLSearchParams();
+        params.append('uname', 'zhangsan');
+        params.append('pwd', '111')
+        axios.post('http://localhost:5050/axios', params)
+            .then(function (ret) {
+                console.log(ret.data);
+            })
+        axios.put('http://localhost:5050/axios/123', {
+            uname: 'lalalal',
+            pwd: 'zhimakaimeng'
+        }).then((res) => {
+            console.log(res.data);
+        })
+    </script>
+</body>
+
+</html>

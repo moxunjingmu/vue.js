@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    fetch('http://127.0.0.1:3000/data')
+      .then(function (res) {
+        // 响应对象
+        console.log(res);
+        // console.log(res.text());
+        // 返回promise实例
+        return res.text();
+      })
+      .then(function (data) {
+        console.log(data);
+      });
+  </script>
+</body>
+
+</html>

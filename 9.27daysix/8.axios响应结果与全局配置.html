@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <script src="../axios.js"></script>
+    <script>
+        // 配置请求的基准url地址
+        axios.defaults.baseURL = 'http://localhost:5050';
+        axios.defaults.timeout = 3000
+        axios.defaults.headers['mytoken'] = 'hello caicai';
+        axios.get('data1')
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err + '请求超时！');
+            })
+    </script>
+</body>
+
+</html>

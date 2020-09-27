@@ -1,0 +1,41 @@
+回调地狱：异步请求函数 一层嵌套一层
+1. promise：通过promise解决回调地狱
+2. fetch：
+3. axios：
+3.1 发送 get、delete、put、post请求
+3.2 全局配置 公共请求路径
+3.3 响应拦截器、请求拦截器
+3.4 通过axios实例发送请求
+
+4. async/await：
+
+图书列表案例
+
+1. 展示图书列表数据
+1.1 导入axios
+  <script src="./js/axios.js"></script>
+
+1.2 添加全局配置 - 设置公共请求路径 -->
+  axios.defaults.baseURL = 'http://localhost:3000/'
+
+1.3 清空mounted代码
+1.4 在methods中添加queryData，获取要展示的数据，并在mounted中调用该方法
+  async queryData() {
+    const res = await axios.get('/books')
+    this.books = res.data
+  }
+1.5 添加响应拦截器，进一步简化代码
+  axios.interceptors.response.use(res => res.data)
+  async queryData() {
+    this.books = await axios.get('/books')
+  }
+
+2. 添加图书
+2.1 禁用 id 文本框
+2.2 清空 handle 方法中else语句包裹的内容
+2.3 发起请求添加数据，根据响应结果是否重新加载页面
+
+3. 点击修改按钮，判断修改图书名的是否唯一
+3.1 清空 watch 中 name 包裹的代码
+3.2 发送验证图书是否存在的请求
+3.3 根据响应结果设置提交按钮是否启用
