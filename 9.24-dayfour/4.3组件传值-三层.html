@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- <my-so2 :tltle="pmsg" :num="pnum"></my-so2> -->
+        <my-son1 :menu-title="pmsg"></my-son1>
+    </div>
+
+
+    <script>
+        Vue.component('my-son2', {
+            // 在子组件内部定义props属性 Array/Object
+            props: {
+                testTile: String, //限制父组件传递的数据类型为string
+            },
+            template: `<div>
+            <div>{{testTile}}</div>
+            </div>`
+        })
+        Vue.component('my-son1', {
+            // 在子组件内部定义props属性 Array/Object
+            props: {
+                menuTitle: String
+            },
+            data() {
+                return {
+                    mmmm: 'sdfsdf'
+                }
+            },
+            template: `<div>
+           {{menuTitle}}
+            <my-son2 :testTile="menuTitle"></my-son2>
+            </div>`
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                pmsg: '父组件值'
+
+            },
+
+        });
+    </script>
+</body>
+
+</html>

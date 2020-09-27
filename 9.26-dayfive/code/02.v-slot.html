@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <script src="js/vue.js"></script> -->
+  <script src="./js/vue_2.6.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com>
+      <!-- <template slot="header"> -->
+        <!-- 具名插槽：v-slot:header  -->
+        <!-- 作用域插槽：v-slot="slotProps" -->
+      <template v-slot:header="slotProps">
+        <div>
+          具名插槽header 填充的内容 v-slot
+          <hr />
+          {{slotProps}}
+        </div>
+      </template>
+    </my-com>
+  </div>
+
+  <script>
+    Vue.component('my-com', {
+      data() {
+        return {
+          uname: 'zsf'
+        }
+      },
+      template: `<div>
+        <header>
+          <slot name="header" :uname="uname">具名插槽</slot>
+        </header>
+        <h3>my-com</h3>
+        <slot>默认插槽</slot>
+      </div>`
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

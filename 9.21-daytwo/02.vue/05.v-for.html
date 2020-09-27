@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 遍历字符串 -->
+    <div v-for="(v,k) in str">{{ v}} -- {{ k}}</div>
+    <hr />
+    
+    <div v-for="(v,k) in num">{{ v}} -- {{ k}}</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        str: 'abcdef',
+        num: 7
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 侦听器：监听data中一个属性的变化 -->
+  <div id="app">
+    <h3>注册用户</h3>
+    用户名：<input type="text" v-model.lazy="uname"><br />
+    邮箱：<input type="text" v-model="email">
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        uname: 'uname',
+        email: ''
+      },
+      watch: {
+        // newVal：修改之后的值
+        // oldVal：修改之前的值
+        uname(newVal, oldVal) {
+          console.log(newVal + ' --- ' + oldVal);
+          console.log('发送请求，验证用户名是否被占用');
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

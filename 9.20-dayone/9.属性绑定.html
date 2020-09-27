@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <div id="app">
+        <a v-bind:href="url">百度</a>
+        </br></br>
+        <a :href="url">百度</a>
+        </br></br>
+        <button @click="handle">切换</button>
+        </br></br>
+        <input type="text" :value='val' v-bind:data-id='val'>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                val: '用户名',
+                url: 'http://www.baidu.com'
+            },
+            methods: {
+                handle: function (e) {
+                    this.url = 'http://www.itcast.com'
+                    e.target.innerHTML
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

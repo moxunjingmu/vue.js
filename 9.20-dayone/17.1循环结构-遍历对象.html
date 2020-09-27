@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循-循环结构-遍历对象</title>
+    <script src="../vue.js"></script>
+    <style>
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-if和v-for结合使用 -->
+        <div v-if='value==12' v-for='(value,key,index) in obj'>{{value+'-'+key+'-'+index}}</div>
+    </div>
+
+    <script>
+        //使用原生js遍历对象
+        var obj = {
+            name: 'moxun',
+            age: 12,
+            gender: 'male'
+        }
+        for (let key in obj) {
+            console.log(key + '---' + obj[key]);
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    name: 'moxun',
+                    age: 12,
+                    gender: 'male'
+                }
+            },
+            methods: {
+                handle: function (e) {}
+            }
+        });
+    </script>
+</body>
+
+</html>

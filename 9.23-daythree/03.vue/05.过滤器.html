@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div>{{msg | beforeNum(333) | afterNum}}</div>
+  </div>
+
+  <script>
+    // 全局过滤器
+    Vue.filter('beforeNum', (data,val) => {
+      console.log(data)
+      return val + data
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'aaa'
+      },
+      methods: {},
+      filters: {
+        afterNum(data) {
+          console.log(data);
+          return data + 222
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

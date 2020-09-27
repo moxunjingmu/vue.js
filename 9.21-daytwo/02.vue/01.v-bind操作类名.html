@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 操作类名之对象格式：属性要添加的类名，属性值决定类名是否添加 -->
+    <div :class="{cls1:true,cls2:false}">对象类名1</div>
+    <div :class="{cls1:isCls1,cls2:isCls2}">对象类名2</div>
+    <!-- 操作类名之数组格式：每个数组元素就是一个类名 -->
+    <div :class="['box1','box2']">数组1</div>
+    <div :class="[b1,b2]">数组2</div>
+    <!-- 操作类名之数组包裹对象的格式： -->
+    <div :class="[b1,b2,{cls1:true,cls2:false}]">数组包裹对象1</div>
+    <div :class="clsArr">数组包裹对象2</div>
+    <!-- 默认class属性不与动态绑定的class冲突 -->
+    <div class="cls" :class="[b1,b2]">类名1</div>
+    <div class="cls" :class="'box1 box2'">类名2</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        clsArr: ['box1', 'box2', { cls1: true, cls2: false }],
+        b1: 'box1',
+        b2: 'box2',
+        isCls1: true,
+        isCls2: true,
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

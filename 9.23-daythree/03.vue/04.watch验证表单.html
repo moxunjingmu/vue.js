@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    用户名：<input type="text" v-model.lazy="uname">
+    <span>{{tips}}</span>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        uname: '',
+        tips: ''
+      },
+      methods: {
+        checkname(val) {
+          setTimeout(() => {
+            if (val === 'admin') {
+              this.tips = '用户名正确'
+            } else {
+              this.tips = '用户名错误'
+            }
+          }, 1000)
+        }
+      },
+      watch: {
+        uname(val) {
+          // 获取表单，并校验
+          this.checkname(val)
+          this.tips = '校验ing.....'
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

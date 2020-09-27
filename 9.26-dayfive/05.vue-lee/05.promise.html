@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/jquery.js"></script>
+  <script>
+    // 通过promise监听请求状态
+    // pending 请求发送中
+    // fulfilled 请求成功
+    // rejected 请求失败
+    const p = new Promise(function (resolve, reject) {
+      $.ajax({
+        url: 'http://127.0.0.1:3000/data',
+        type: 'get',
+        // 设置返回的数据类型
+        // dataType:'json',
+        success(res) {
+          // 调用then方法中的第一个回调
+          resolve(res)
+        },
+        error() {
+          // 调用then方法中的第二个回调
+          reject('请求失败 -- error')
+        }
+      })
+    })
+
+    // 2. 通过promise实例的then方法处理响应结果
+    p.then((data)=>{
+      console.log('then中的第一个回调');
+      console.log(data);
+    },(err)=>{
+      console.log('then中的第二个回调');
+      console.log(err);
+    })
+  </script>
+</body>
+
+</html>

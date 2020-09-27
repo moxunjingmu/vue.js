@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" name="age" class="age" id="inputId" value="17" myAttr="myAttr">
+    </div>
+
+    <script>
+        var inputDom = document.querySelector('#inputId')
+        console.log(inputDom.getAttribute('type'))
+        console.log(inputDom.type)
+        // text
+        // text
+
+        inputDom.setAttribute('type', '007')
+        console.log(inputDom.getAttribute('type'))
+        console.log(inputDom.type)
+        // 007
+        // text
+
+        inputDom.type = '008'
+        console.log(inputDom.getAttribute('type'))
+        console.log(inputDom.type)
+        // 008
+        // text
+    </script>
+</body>
+
+</html>

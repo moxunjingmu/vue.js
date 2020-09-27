@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <div>{{on}}</div>
+        <button @click='handle1Click'>btn1</button>
+        <button @click='handle2Click()'>btn2</button>
+        <button @click='handle3Click("a","b",$event)'>btn3</button>
+        <button @click='handle4Click($event,"a",)'>btn4</button>
+        <!--         事件绑定 - 参数传递
+        1. 事件直接绑定函数名称， 默认传递事件对象作为事件函数的第一个参数
+        2.事件绑定函数调用,事件对象必须作为最后一个参数传递，且固定为$event 默认 -->
+
+
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                on: '1'
+            },
+            methods: {
+                handle1Click(e) {
+                    console.log(e);
+                },
+                handle2Click(e) {
+                    console.log(e);
+
+                },
+                handle3Click() {
+                    console.log(arguments);
+                },
+                handle4Click() {
+                    console.log(arguments);
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!--todo  数据变化时执行异步或开销较大的操作 -->
+    <div id="app">
+        <span>注册用户</span></br>
+
+        用户名:<input type="text" v-model='uname' @keyup.delete='de'></br>
+        邮箱:<input type="text" v-model='email'>
+        <!-- <div>{{fullname}}</div> -->
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: '请输入用户名',
+                email: ''
+            },
+            methods: {
+                de: function () {
+                    this.uname = ''
+                }
+            },
+            computed: {
+
+            },
+            watch: {
+                // data中属性叫什么侦听器就叫什么->侦听的是data的数据 
+                uname(newVal, oldVal) {
+                    console.log(newVal + '-' + oldVal);
+                    console.log('发送请求，验证用户名是否被占用！');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

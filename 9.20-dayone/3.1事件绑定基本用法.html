@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{on}}</div>
+        <button v-on:click='on--'>点击-</button>
+        <button @click='on++'>点击+</button>
+        <button @click='handle'>点击+</button>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                on: '1'
+            },
+            methods: {
+                handle: function () {
+                    //  这里的this指Vue实例对象vm
+                    console.log(this === vm);
+                    this.on++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

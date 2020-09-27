@@ -1,0 +1,79 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <bro-a></bro-a>
+         <bro-b></bro-b>
+
+     </div>
+
+     <script>
+         //  创建事件中心
+         const hub = new Vue()
+         //  2.将bro-b的数据传递给broa
+         Vue.component('bro-a', {
+             template: ` <div>
+                <h3>bro-a</h3>
+                <div>{{a}}</div>
+                <button @click="handleA">a向b传值</button>
+                </div>`,
+             data() {
+                 return {
+                     a: 'aaaaaaaaaaaaaa'
+                 }
+             },
+             methods: {
+                 handleA() {
+                     hub.$emit('a-event', this.a)
+                 }
+             },
+             mounted() {
+                 //  监听bro-b触发的自定义事件
+                 hub.$on('b-event', (v1) => {
+                     console.log(v1); //打印bro-b传递的数据
+                     this.a = v1; //接收bro-b传递的数据
+                 })
+             }
+         })
+         Vue.component('bro-b', {
+             template: ` <div>
+                <h3>bro-b</h3>
+                <div>{{b}}</div>
+                <button @click="handleB">b向a传值</button>
+                </div>`,
+             data() {
+                 return {
+                     b: 'bbbbbbbbbbbb'
+                 }
+             },
+             methods: {
+                 handleB() {
+                     //触发自定义事件，并将bro-b的值传递到触发的事件处理程序中
+                     hub.$emit('b-event', this.b)
+                 }
+             },
+             mounted() {
+                 hub.$on('a-event', (v1) => {
+                     console.log(v1);
+                     this.b = v1;
+                 })
+             }
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {},
+             methods: {
+                 handle: function (e) {}
+             }
+         });
+     </script>
+ </body>
+
+ </html>

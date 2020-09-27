@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    计算属性与方法的区别：
+  1.计算属性调用时不带括号，方法调用时带括号
+  2.当多次调用计算属性时，计算属性只执行一次，后面的计算属性使用第一次
+  计算属性缓存的计算结果
+  3. 当多次调用方法时，调用几次，执行几次
+  -->
+  <div id="app">
+    商品价格：<input type="text" v-model="price"> <br />
+    商品数量：<input type="text" v-model="num"> <br />    
+    商品总价格：<span>{{ totalPrice }}</span><br />
+    商品总价格：<span>{{ totalPrice }}</span><br />
+    商品总价格-total：<span>{{ total() }}</span><br />
+    商品总价格-total：<span>{{ total() }}</span><br />
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        price: 100,
+        num: 1,
+      },
+      methods: {
+        total() {
+          console.log('total');
+          return this.price * this.num
+        }
+      },
+      computed: {
+        totalPrice() {
+          console.log('totalPrice');
+          return this.price * this.num
+        }
+      },
+
+    });
+  </script>
+</body>
+
+</html>

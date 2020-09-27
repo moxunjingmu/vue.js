@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+
+</head>
+
+<body>
+    <div id="app">{{msg}}</div>
+    <input type="text">
+
+
+    <script>
+        const ipt = document.querySelector('input')
+        const app = document.querySelector('#app')
+
+        const data = {
+            msg: ''
+        }
+
+        ipt.addEventListener('input', function () {
+            data.msg = this.value;
+        })
+        let val = ''
+
+        Object.defineProperty(data, 'msg', {
+            get() {
+                return val;
+            },
+            set(newVal) {
+                val = newVal
+                app.innerHTML = newVal;
+                ipt.value = newVal
+            }
+        })
+    </script>
+</body>
+
+</html>

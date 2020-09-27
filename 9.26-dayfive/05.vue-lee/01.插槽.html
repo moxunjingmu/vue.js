@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>插槽</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com>
+      <div class="cls">传递的组件内容1</div>
+    </my-com>
+    <hr />
+    <my-com>
+      <div class="cls">传递的组件内容2222</div>
+    </my-com>
+  </div>
+
+  <script>
+    Vue.component('my-com',{
+      template:`<div class="my-com">
+        <h3>my-com组件</h3>
+        <slot></slot>
+      </div>`
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

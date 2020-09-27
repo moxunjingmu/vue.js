@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 为子组件绑定属性，属性值为父组件data中的属性 -->
+        <my-son :tltle="pmsg" :num="pnum"></my-son>
+    </div>
+
+
+    <script>
+        Vue.component('my-son', {
+            // 在子组件内部定义props属性 Array/Object
+            props: {
+                title: String, //限制父组件传递的数据类型为string
+                num: Number //限制父组件传递的数据类型为number
+            },
+            template: `<div>
+            <h3>my-son</h3>
+            <div>{{title}}</div>
+            <div>{{num}}</div>
+            </div>`
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                pmsg: '父组件值',
+                pnum: 123213
+            }
+        });
+    </script>
+</body>
+
+</html>

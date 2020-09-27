@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg|beforeNum(333)|afterNum}}</div>
+    </div>
+
+    <script>
+        // Vue.filter('beforeNum',(data)=>{
+        //     console.log(data);
+        //     return 111 + data
+        // })
+        Vue.filter('beforeNum', (data, val) => {
+            console.log(data);
+            return val + data
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'aaa'
+            },
+            methods: {
+                handle: function (e) {}
+            },
+            filter: {
+                afterNum(data) {
+                    console.log(data);
+                    return data + 222;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

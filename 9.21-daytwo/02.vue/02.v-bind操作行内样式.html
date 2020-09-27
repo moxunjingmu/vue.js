@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div style="border:1px solid red;width:100px;height:100px">行内样式1</div>
+    <div :style="'border:1px solid red;width:100px;height:100px'">行内样式2</div>
+    <div :style="{border:'1px solid red',width:'100px',height:'100px'}">行内样式3</div>
+    <div :style="{border:borderStyle,width:widthStyle,height:heightStyle,color:colorStyle}">行内样式4</div>
+    <div :style="[{border:'1px solid red',width:'100px'},{height:heightStyle,color:colorStyle}]">行内样式数组</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        borderStyle:'1px solid red',
+        widthStyle:'100px',
+        heightStyle:'100px',
+        colorStyle:'pink'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

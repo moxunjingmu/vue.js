@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!--todo  数据变化时执行异步或开销较大的操作 -->
+    <div id="app">
+        <div>
+            <span>姓:</span>
+            <span>
+                <input type="text" v-model='first'>
+            </span>
+        </div>
+        <div>
+            <span>名:</span>
+            <span>
+                <input type="text" v-model='last'>
+            </span>
+        </div>
+        <div>{{fullname}}</div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                first: '',
+                last: ''
+            },
+            computed: {
+
+            },
+            watch: {
+                firstName() {
+                    return val + this.last
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

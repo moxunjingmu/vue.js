@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+     <script src="../moment.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <div>{{date | format('YYYY-MM-DD hh:mm:ss')}}</div></br>
+         <div>{{date | format('yyyy-MM-DD HH:mm:ss')}}</div>
+         <div>{{date | format('MMM Do YY')}}</div>
+
+     </div>
+
+     <script>
+         //  Vue.filter('format', (data, arg) => {
+         //      if (arg === 'yyyy-MM-dd') {
+         //          let ret = '';
+         //          ret += `${data.getFullYear()}-${data.getMonth()}`
+         //      }
+         //  })
+         Vue.filter('format', (data, arg) => {
+             console.log(data);
+             return moment(data).format(arg)
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 date: new Date()
+             },
+             methods: {
+                 handle: function (e) {}
+             }
+         });
+     </script>
+ </body>
+
+ </html>

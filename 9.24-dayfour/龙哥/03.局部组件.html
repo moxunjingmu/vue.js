@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <hello-tom></hello-tom>
+    <hr>
+    <my-com></my-com>
+  </div>
+
+  <script>
+    const HelloTom = {
+      template: `<div>
+            <button>{{ tom }}</button>
+          </div>`,
+      data() {
+        return {
+          tom: 'tom123'
+        }
+      }
+    }
+    Vue.component('my-com', {
+      template: `<div>
+        <h3>my-com</h3>
+        <hello-tom></hello-tom>
+      </div>`,
+      name: 'aa',
+      components: {
+        'hello-tom': HelloTom
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      components: {
+        'hello-tom': HelloTom
+      }
+    });
+  </script>
+</body>
+
+</html>

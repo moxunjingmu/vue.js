@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background-color: gold;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="v">
+        <div class="right" v-on:click='moneyall+=handmoneyadd' v-cloak>点击加{{handmoneyadd}}金钱</div>
+        <div>金钱：<span v-cloak>{{moneyall}}</span></div>
+        <div v-if='moneyall>=100' v-cloak>消耗100<button @click='clickadd'>点击金钱增加0.5</button>lev：{{handlevel}}</div>
+
+        <div v-if='moneyall>=500' v-cloak>消耗500<button @click='intervalless' :disabled='autoflag'
+                v-text='autotxt'></button>
+            lev：{{autotimelevel}}</div>
+
+        <div v-if='moneyall>=1000' v-cloak>消耗1000<button @click='autoadd'>自动金钱增加0.5</button>lev：{{automoneylevel}}</div>
+
+        <div v-if='moneyall>=5000' v-cloak>消耗5000<button @click=''></button></div>
+
+        <div v-if='moneyall>=10000' v-cloak>消耗10000<button @click=''></button></div>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#v',
+        data: {
+            moneyall: 0,//钱
+            automoneyadd: 1,//自动金钱增加
+            autotime: 1000,//自动间隔
+            autoflag: false,//自动间隔升级按钮开关
+            autotxt: '自动冷却减少0.01',//自动按钮文本
+            handmoneyadd: 1,//手动金钱增加
+            handlevel: 0,
+            autotimelevel: 0,
+            automoneylevel: 0,
+            timer: null
+
+        },
+        mounted() {
+            //————————————————————————
+            // 此处插眼，定时器要在关闭页面前清除，如果勤快的话
+            //————————————————————————
+            this.automoney()
+        },
+        methods: {
+            // 金钱跳动
+            automoney() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timer = setInterval(() => {
+                    this.moneyall += this.automoneyadd
+                }, this.autotime);
+            },
+            // 消耗100 点击增加0.5
+            clickadd() {
+                this.moneyall -= 100;
+                this.handmoneyadd += 0.5;
+                this.handlevel++;
+            },
+            // 消耗500,自动冷却减少0.01
+            intervalless() {
+                this.moneyall -= 500;
+                this.autotime -= 10;
+                this.autotimelevel++;
+                this.automoney();
+            },
+            // 消耗1000,自动金钱增加0.5
+            autoadd() {
+                this.moneyall -= 1000;
+                this.automoneyadd += 0.5;
+                this.automoneylevel++;
+                this.automoney();
+            }
+        },
+        // 自定义指令
+        directives: {
+
+        },
+        // 侦听器
+        watch: {
+            autotime(val) {
+                if (val <= 10) {
+                    this.autoflag = true;
+                    this.autotxt = '已满级'
+                    this.autotimelevel = 'max'
+                }
+            },
+        }
+    });
+
+
+
+
+</script>
+
+</html>

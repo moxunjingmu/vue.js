@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="handle">btn</button>
+    <br />
+    <input type="text" v-model="msg">
+    <p>{{msg}}</p>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '修改前aaa'
+      },
+      methods: {
+        handle() {
+          // this.msg = '修改后bbb'
+          this.$destroy()
+        }
+      },
+      // --------初始化阶段-------
+      beforeCreate() {
+        // 将data中的属性 与 methods中的方法 添加到vm实例上之前调用
+        // console.log(this.msg);
+        // console.log(this.handle);
+        console.log('beforeCreate');
+      },
+      created() {
+        // 将data中的属性 与 methods中的方法 添加到vm实例上之后调用
+        // console.log(this.msg);
+        // console.log(this.handle);
+        console.log('created');
+      },
+      beforeMount() {
+        // 重新渲染页面之前
+        // const p = document.querySelector('p')
+        // console.log(p);
+        console.log('beforeMount');
+      },
+      mounted() {
+        // 重新渲染页面之后
+        // const p = document.querySelector('p')
+        // console.log(p);
+        console.log('mounted');
+      },
+      beforeUpdate() {
+        // 当数据发生变化后，重新渲染页面之前
+        const p = document.querySelector('p')
+        console.log(p.innerHTML);
+        console.log('beforeUpdate');
+      },
+      updated() {
+        // 当数据发生变化后，重新渲染页面之后
+        const p = document.querySelector('p')
+        console.log(p.innerHTML);
+        console.log('updated');
+      },
+      beforeDestroy() {
+        console.log('beforeDestroy');
+      },
+      destroyed() {
+        console.log('destroyed');
+      },
+
+    });
+  </script>
+</body>
+
+</html>

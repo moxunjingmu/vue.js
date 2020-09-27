@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app"> </div>
+     <!-- todo vue生命周期钩子函数：从vue实例创建到销毁必然执行的函数 -->
+     <script>
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 msg: 'msg'
+             },
+             methods: {
+                 handle: function (e) {
+                     console.log('handle');
+                 }
+             },
+             beforeCreate() {
+                 console.log(this.msg);
+                 console.log(this.handle);
+                 console.log('beforecreate');
+
+             },
+             created() {
+                 console.log(this.msg);
+                 console.log(this.handle);
+                 console.log('created');
+             },
+
+
+
+         });
+     </script>
+ </body>
+
+ </html>

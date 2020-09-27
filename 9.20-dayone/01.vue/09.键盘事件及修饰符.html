@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 按键修饰符：限制触发键盘事件的按键 -->
+    <input type="text" @keyup.enter="handleKeyup">
+    <br />
+    <br />
+    <input type="text" @keyup.65="handleKeyup">
+    <input type="text" @keyup.keya="handleKeyup">
+  </div>
+
+  <script>
+    // 自定义 按键修饰符
+    Vue.config.keyCodes.keya = 65
+    
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        handleKeyup(e){
+          console.log(e.keyCode);
+          console.log(e.key);
+          console.log(e.target.value);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{on}}</div>
+        <!-- 事件修饰符：阻止冒泡 -->
+        <div @click='handle0'>
+
+            <button v-on:click.stop='handle1'>直接绑定-</button>
+        </div>
+        <div>
+            <a href="http://www.baidu.com" v-on:click.prevent='handle2'>百度</a>
+        </div>
+
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        /*  事件绑定 - 参数传递
+        1. 事件直接绑定函数名称， 默认传递事件对象作为事件函数的第一个参数
+        2.事件绑定函数调用,事件对象必须作为最后一个参数传递，且固定为$event */
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                on: '1'
+            },
+            methods: {
+                handle0: function () {
+                    this.on--;
+                },
+                handle1: function (event) {
+                    //阻止冒泡
+                    // event.stopPropagation();
+                },
+                handle2: function (event) {
+                    // 阻止默认行为
+                    // event.preventDefault()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

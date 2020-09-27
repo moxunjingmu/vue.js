@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>插槽</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 作用域插槽：获取组件给插槽占位符绑定的属性和属性值 -->
+    <my-com>
+      <template slot-scope="slotProps">
+        {{slotProps}}
+        <p>{{ slotProps.username }}</p>
+        <p>{{ slotProps.gender }}</p>
+        <div v-for="item in slotProps.fruits">
+          {{item.name}} -- {{item.id}}
+        </div>
+      </template>
+    </my-com>
+  </div>
+
+  <script>
+    Vue.component('my-com', {
+      data() {
+        return {
+          sex: '男',
+          uname: 'zsf',
+          list: [
+            {
+              id: 1,
+              name: 'apple'
+            }, {
+              id: 2,
+              name: 'orange'
+            }, {
+              id: 3,
+              name: 'banana'
+            }]
+        }
+      },
+      template: `<div class="my-com">
+        <h3>my-com组件</h3>
+        <p>作用域插槽：获取组件给插槽占位符绑定的属性和属性值</p>
+        <slot :gender="sex" :username="uname" :fruits="list">{{sex}}</slot>
+      </div>`
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

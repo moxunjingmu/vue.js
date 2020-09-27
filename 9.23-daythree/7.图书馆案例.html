@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .grid {
+            margin: auto;
+            width: 530px;
+            text-align: center;
+        }
+
+        .grid table {
+            border-top: 1px solid #ad7037;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed rgb(231, 174, 104);
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .grid th {
+            background-color: rgb(231, 174, 104);
+        }
+
+        .grid .book {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: rgb(231, 174, 104);
+            border-bottom: 1px solid #ad7037;
+
+        }
+
+
+        a {
+            padding: 0 3px;
+            background-color: rgb(231, 174, 104);
+            text-decoration: none;
+            border-radius: 3px;
+            color: rgb(150, 103, 43);
+        }
+
+        tbody {
+            background-color: rgb(255, 230, 184);
+        }
+
+        .total {
+            background-color: rgb(231, 174, 104);
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .tijiao {
+            padding: 0 4px;
+            border: 1px solid rgb(231, 174, 104);
+            color: chocolate;
+            border-radius: 4px;
+            background-color: rgb(235, 206, 172);
+        }
+
+        button:visited {
+            border: 1px solid rgb(231, 174, 104);
+        }
+
+        input {
+            background: rgb(252, 232, 197);
+            outline: none;
+            border: none;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div class="top">
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">
+                            编号：
+                        </label>
+                        <input type="text" id="id" v-model='id' :disabled="flag" v-focus>
+                        <label for="name">
+                            名称：
+                        </label>
+                        <input type="text" id="name" v-model='name'>
+                        <span class="tijiao" @click='handle' :disabled='submitFlag'>提交</span>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <span>图书总数:</span>
+                <span>{{total}}</span>
+                <span>{{this.books.length}}</span>
+                <span>搜索: <input type="text" v-model="searchTxt"></span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr :key='item.id' v-for='item in search()'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date | format('YYYY-MM-DD HH:mm:ss')}}</td>
+                        <td>
+                            <a href="" @click.prevent='toEdit(item.id)' :style='blue'>修改</a>
+                            <span></span>
+                            <a href="" @click.prevent='deletebook(item.id)' :style="red">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script src="../moment.js"></script>
+    <script type="text/javascript">
+        /*
+      图书管理-添加图书
+    */
+        //    自定义指令
+        Vue.directive('focus', {
+            inderted: function (el) {
+                el.focus();
+            }
+        })
+        Vue.filter('format', function (data, arg) {
+            return moment(data).format(arg)
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // 记录提交按钮的功能状态: true->修改 false->添加
+                flag: false,
+                searchTxt: '',
+                submitFlag: false,
+                red: 'color:#8b1623',
+                blue: 'color:rgb(238, 209, 155)',
+                id: '',
+                name: '',
+                books: ''
+            },
+            methods: {
+                search() {
+                    return this.books.filter(item => {
+                        return item.name.indexOf(this.searchTxt) >= 0
+                    })
+                },
+                handle: function () {
+                    if (this.flag) {
+                        //  编辑图书功能
+                        // 根据当前的id更新数组中对应的数据
+                        this.books.some(item => {
+                            if (item.id === this.id) {
+                                item.name = this.name
+                                // item.date = moment(new Date()).format('YYYY-MM-DD ')
+                                // this.blue = 'color:rgb(238, 209, 155)'
+                                // 完成更新操作之后，需要终止循环
+                                return true;
+                            }
+                        })
+                        this.flag = false
+                    } else {
+                        //    添加图书功能
+                        let book = {}
+                        book.id = this.id
+                        book.name = this.name
+                        book.date = new Date()
+                        // book.date = Date.now();
+                        // book.date = moment(new Date()).format('YYYY-MM-DD ')
+                        this.books.push(book)
+
+                    }
+                    // 清空表单
+                    this.id = ''
+                    this.name = ''
+
+                },
+                toEdit(id) {
+                    // 根据id查询要编辑的数据
+                    // let book = this.books.filter(item => {
+                    //     return item.id === id
+                    // })
+                    // this.id = book[0].id
+                    // this.name = book[0].name
+                    // find方法返回数组元素-查找到停止查找
+                    // this.red = 'color:#000'
+                    this.flag = true;
+                    const book = this.books.find(item => {
+                        return item.id === id
+                    })
+                    console.log(this);
+                    this.blue = 'color:#000'
+                    this.id = book.id
+                    this.name = book.name
+                },
+                deletebook(id) {
+                    //  删除图书
+                    // 根据id从数组中找到元素的索引
+                    // 遍历数组，当回调函数return结果为true时返回当前元素索引，并终止循环
+                    var index = this.books.findIndex(item => {
+                        return item.id == id;
+                    });
+                    this.books.splice(index, 1);
+                    // 方法二：通过filter方法删除
+                    // this.books = this.books.filter(item => {
+                    //     return item.id !== id;
+                    // })
+                }
+            },
+            computed: {
+                total: function () {
+                    //计算图书的总数
+                    return this.books.length;
+                }
+            },
+            watch: {
+                name: function (val) {
+                    // 验证图书名称是否已经存在----------------
+                    this.submitFlag = this.books.some(item => {
+                        return item.name === val;
+                    })
+                }
+            },
+            created: function () {
+                // 该生命周期钩子函数被触发的时候，模板已经可以使用
+                //一般此时用于获取后台数据，然后把数据填充到模板
+                let data = [{
+                    id: 1,
+                    name: '三国演义',
+                    date: 2525609975000
+                }, {
+                    id: 2,
+                    name: '水浒传',
+                    date: 2525609975000
+                }, {
+                    id: 3,
+                    name: '红楼梦',
+                    date: 2525609975000
+                }, {
+                    id: 4,
+                    name: '西游记',
+                    date: 2525609975000
+                }, {
+                    id: 5,
+                    name: '邮寄三国',
+                    data: ''
+                }, {
+                    id: 6,
+                    name: '印度阿三',
+                    data: ''
+                }, {
+                    id: 7,
+                    name: '三哥三嫂',
+                    data: ''
+                }, {
+                    id: 8,
+                    name: '智障三国',
+                    data: ''
+                }]
+                this.books = data;
+            }
+        });
+    </script>
+</body>
+
+</html>

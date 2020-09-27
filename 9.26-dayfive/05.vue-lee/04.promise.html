@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/jquery.js"></script>
+  <script>
+
+    // 1. 创建promise实例，会通过ajax发送请求
+    // 当请求成功时 调用resolve，会执行then中的第一个函数
+    // 当请求失败时 调用reject，会执行then中的第二个函数
+    const promise = new Promise(function (resolve, reject) {
+      $.ajax({
+        type: 'get',
+        url: 'http://127.0.0.1:3000/data',
+        // 设置响应的数据类型
+        // dataType: 'json',
+        success(res) {
+          resolve(res)
+        },
+        error() {
+          reject('请求失败')
+        }
+      })
+    })
+    // 2. 通过promise的then函数处理响应结果
+    // then中的第一个参数是 执行resolve时调用
+    // then中的第二个参数是 执行reject时调用
+    promise.then(
+      (data) => {
+        console.log('resolve');
+        console.log(data);
+      },
+      (data) => {
+        console.log('reject');
+        console.log(data);
+      }
+    )
+  </script>
+</body>
+
+</html>

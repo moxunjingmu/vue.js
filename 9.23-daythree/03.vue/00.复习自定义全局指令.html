@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div v-color="'red'">全局自定义指令</div>
+    <div v-bg="'red'">局部自定义指令</div>
+    <input type="text" v-focus>
+  </div>
+<hr />
+  <div id="box">
+    <div v-color="'red'">全局自定义指令</div>
+    <div v-bg="'red'">局部自定义指令</div>
+  </div>
+
+  <script>
+    Vue.directive('color', {
+      bind(el, binding) {
+        console.log(el);
+        console.log(binding);
+        el.style.color = binding.value
+      },
+      inserted() {
+
+      }
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      // 自定义局部指令
+      directives: {
+        'bg': {
+          bind(el, binding) {
+            console.log(el);
+            console.log(binding);
+            el.style.background = binding.value
+          }
+        },
+        focus: {
+          inserted(el, binding) {
+            el.focus()
+          }
+        }
+      }
+    });
+    
+    let vm2 = new Vue({
+      el:'#box'
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-fos id="caicai">
+        <input type="text">
+    </div>
+    <!--todo 全局自定义指令
+    在标签中添加指令，快速的操作页面元素 -->
+
+    <script>
+        Vue.directive('fos', {
+            bind(el) {
+                // bind:将添加指令的元素插入到父元素之前调用
+                //在bind函数中获取的添加指令的元素还在内存中，所以无法实现某些js效果
+                console.log(el.parenNode);
+                console.log("----------");
+                //  el.focus()
+                el.style.background = 'red'
+            },
+            inserted: function (el) {
+                //el表示指令绑定的元素
+                // inserted：将添加指令的元素插入到父元素之后调用
+                console.log(el.parenNode);
+                el.style.width = '300px'
+                el.focus()
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                handle: function (e) {}
+            }
+        });
+    </script>
+</body>
+
+</html>

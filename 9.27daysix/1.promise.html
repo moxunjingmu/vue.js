@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+ <html lang="zh-CN">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>莫循的主页</title>
+ </head>
+
+ <body>
+
+     <script src="../jquery.js"></script>
+     <script src="../vue.js"></script>
+     <script>
+         //  1.创建promise实例，会通过ajax发送请求
+         // 当请求成功时，调用resolve，会执行太狠中第一个函数
+         // 当请求成功时，调用resolve，会执行太狠中第一个函数
+         function getDate(url) {
+             new Promise(function (resolve, reject) {
+                 $.ajax({
+                     url,
+
+                     success(res) {
+                         resolve(res)
+                     },
+                     error() {
+                         reject('请求失败！')
+                     }
+                 })
+             })
+         }
+
+         //2.通过 promise的then函数处理响应结果
+         //then中的第一个参数是执行 resolve时调用
+         //then中的第二个参数是执行 reject时调用
+         getDate('http://127.0.0.1:5050/data')
+             .then((data) => {
+                 console.log(data);
+                 return getDate('http://127.0.0.1:5050/data1')
+             }).then((data) => {
+                 console.log(data);
+                 return getDate('http://127.0.0.1:5050/data2')
+             }).then((data) => {
+                 console.log(data);
+
+             })
+     </script>
+ </body>
+
+ </html>

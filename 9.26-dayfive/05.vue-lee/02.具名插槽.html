@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com>
+      <!-- 插槽填充内容的显示顺序：有插槽占位符的顺序决定 -->
+      <h3 slot="footer">footer</h3>
+      <!-- template：包裹元素的容器，不做页面显示用 -->
+      <template slot="header">
+        <p>header</p>
+        <p>header</p>
+        <p>header</p>
+      </template>
+      <template>
+        <div>默认1</div>
+        <div>默认2</div>
+      </template>
+    </my-com>
+  </div>
+
+  <script>
+    // 具名插槽
+    // 设置插槽默认显示的内容
+    Vue.component('my-com', {
+      template: `<div>
+        <header>
+          <slot name="header">具名插槽 -- header</slot>
+        </header>
+        <h3>my-com</h3>
+        <main>        
+          <slot>默名插槽</slot>
+        </main>
+        <footer>        
+          <slot name="footer">具名插槽 -- footer</slot>
+        </footer>
+      </div>`
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

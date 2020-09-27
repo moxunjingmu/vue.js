@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <!-- 1.子组件调用父组件的方法 -->
+         <!-- 1.1在父组件中，为子组件注册自定义事件 -->
+         <my-son @my-event="handleFa"> </my-son>
+         <!-- 不可以传递多个值,传递多个值需要使用数组方式 -->
+         <my-son @my-event="handleFa($event)"> </my-son>
+     </div>
+
+
+     <script>
+         Vue.component('my-son', {
+             template: `
+             <div>
+            <h3>my-son</h3>
+            <button @click='handleSon'>子向父传值</button>
+            </div>`,
+             data() {
+                 return {
+                     sonone: 'oneoneoneone',
+                     sontwo: 'twotwotwotwo'
+                 }
+             },
+             methods: {
+                 //  1.2在子组件的事件处理程序中，触发父组件注册的自定义事件
+                 handleSon() {
+                     this.$emit('my-event', this.sonone, this.sontwo)
+                 }
+             }
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 fa: 'fufufufufu'
+             },
+             methods: {
+                 handleFa(v1, v2) {
+                     console.log(v1, v2);
+                     console.log('谁tm调用老子');
+                     this.fa = v1 //将接收到的子组件数据 赋值给父组件中的data属性
+                 }
+             }
+         });
+     </script>
+ </body>
+
+ </html>

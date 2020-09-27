@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="handle1Click">btn1</button>
+    <button @click="handle2Click()">btn2</button>
+    <button @click="handle3Click('a','b',$event)">btn3</button>
+    <button @click="handle4Click('a',$event,'b')">btn4</button>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      methods: {
+        handle1Click(e) {
+          console.log(e);
+        },
+        handle2Click(e) {
+          console.log(e);
+        },
+        handle3Click() {
+          console.log(arguments);
+        },
+        handle4Click() {
+          console.log(arguments);
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>

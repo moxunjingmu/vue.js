@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- *为了提升渲染效率，vue会复用页面元素
+    *通过key属性让vue标识不同的元素
+   * 环遍历页面元素时，如果元素只做展示，不需要添加key属性
+    *如果需要操作遍历的页面元素，key必须添加，key值必须唯一，且不能发生变化 -->
+    <div id="app">
+        <input type="text" v-model="name">
+        <button @click="handle">add</button>
+        <div v-for="(item,index) in arr" :key="item.id">
+            {{item.id}}-
+            <input type="checkbox"> - -
+            {{item.name}}
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                arr: [{
+                        id: 1,
+                        name: 'zs'
+                    },
+                    {
+                        id: 2,
+                        name: 'wangwy'
+                    },
+                    {
+                        id: 3,
+                        name: 'hhh'
+                    },
+                ]
+            },
+            methods: {
+                handle: function (e) {
+                    this.arr.unshift({
+                        id: this.arr.length + 1,
+                        name: this.name
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <!-- 作用域插槽：获取组件给插槽占位符绑定的属性和属性值 -->
+         <my-com :list="list">
+             <template slot-scope="slotPros">
+                 <div>
+                     <!-- {{slotPros}} -->
+                     <p>
+                         {{slotPros.gender}}
+                     </p>
+                     <p>
+                         {{slotPros.userage}}
+                     </p>
+                     <div v-for="item in slotPros.userlist">
+                         {{item.name}}---{{item.id}}
+                     </div>
+                 </div>
+
+             </template>
+
+         </my-com>
+     </div>
+
+
+     <script>
+         Vue.component('my-com', {
+             props: ['list'],
+             data() {
+                 return {
+                     age: 12,
+                     uname: 'momomo',
+
+                 }
+             },
+             template: `<div class="my-com">
+             <h3>my-com</h3>
+             <slot :gender="uname" :userage="age" :userlist="list">默认插槽</slot>
+                          
+                        </div>`
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 list: [{
+                     id: 1,
+                     name: 'lalala'
+                 }, {
+                     id: 2,
+                     name: '2222222222'
+                 }, {
+                     id: 3,
+                     name: '3333333333'
+                 }]
+             },
+             methods: {
+                 handle: function (e) {}
+             }
+         });
+     </script>
+ </body>
+
+ </html>

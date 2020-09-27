@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-cloak>{{msg}}</div>
+        <!--todo 填充纯文本 -->
+        <div v-text='msg'></div>
+        <!-- todo 填充html字段 -->
+        <div v-html='msg1'></div>
+        <!-- todo 显示原始信息,跳过编译  -->
+        <div v-pre>{{msg}}</div>
+        <!-- todo v-once应用场景：显示场景不需要再修改，提高性能 -->
+        <div v-once>{{info}}</div>
+        <!-- todo 双向数据绑定 -->
+        <div>
+            <input type="text" v-model='msg'>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        // 先通过样式隐藏内容，然后在内存中进行值得替换->编译，替换好再显示结果
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue!!!',
+                msg1: '<h1>HTML</h1>',
+                info: 'info'
+            }
+        });
+    </script>
+
+</body>
+
+</html>

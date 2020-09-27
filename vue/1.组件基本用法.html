@@ -1,0 +1,144 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <div>{{msg}}</div>
+         <hr>
+         <my-com></my-com>
+         <!-- <my-com></my-com> -->
+         <my-lalal></my-lalal>
+         <!--todo 组件命名:在html结构中不区分大小写，组件调用只能使用连接符 -->
+     </div>
+
+     <script>
+         //  驼峰命名法
+         //  vue中大写字母前会添加-
+         Vue.component('MyLalal', {
+
+             template: `<div>
+                {{mount}}
+                <button @click="handle">btn帕斯卡</button>
+                </div>`,
+             data() {
+                 return {
+                     mount: 0
+                 }
+             },
+             methods: {
+                 handle() {
+                     this.mount++
+                 }
+             }
+         })
+
+         Vue.component('my-com', {
+             template: `<div>
+                {{count}}
+                <button @click="handle">btn</button>
+                <MyLalal></MyLalal>
+                </div>
+               
+             `,
+             data() {
+                 return {
+                     count: 0
+                 }
+             },
+             methods: {
+                 handle() {
+                     this.count++
+                 }
+             },
+             // --------初始化阶段-------
+             beforeCreate() {
+                 console.log('beforeCreate-------1');
+             },
+             created() {
+                 console.log('created-------------1');
+             },
+             beforeMount() {
+                 console.log('beforeMount----------1');
+             },
+             mounted() {
+                 console.log('mounted----------1');
+             },
+             beforeUpdate() {
+                 console.log('beforeUpdate-------1');
+             },
+             updated() {
+                 console.log('updated-----------1');
+             },
+             beforeDestroy() {
+                 console.log('beforeDestroy----1');
+             },
+             destroyed() {
+                 console.log('destroyed------1');
+             },
+         })
+         // 根组件
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 msg: ''
+             },
+             methods: {
+                 handle: function (e) {}
+             },
+             // --------初始化阶段-------
+             beforeCreate() {
+                 // 将data中的属性 与 methods中的方法 添加到vm实例上之前调用
+                 // console.log(this.msg);
+                 // console.log(this.handle);
+                 console.log('beforeCreate');
+             },
+             created() {
+                 // 将data中的属性 与 methods中的方法 添加到vm实例上之后调用
+                 // console.log(this.msg);
+                 // console.log(this.handle);
+                 console.log('created');
+             },
+             beforeMount() {
+                 // 重新渲染页面之前
+                 // const p = document.querySelector('p')
+                 // console.log(p);
+                 console.log('beforeMount');
+             },
+             mounted() {
+                 // 重新渲染页面之后
+                 // const p = document.querySelector('p')
+                 // console.log(p);
+                 console.log('mounted');
+             },
+             beforeUpdate() {
+                 // 当数据发生变化后，重新渲染页面之前
+                 const p = document.querySelector('p')
+                 console.log(p.innerHTML);
+                 console.log('beforeUpdate');
+             },
+             updated() {
+                 // 当数据发生变化后，重新渲染页面之后
+                 const p = document.querySelector('p')
+                 console.log(p.innerHTML);
+                 console.log('updated');
+             },
+             beforeDestroy() {
+                 console.log('beforeDestroy');
+             },
+             destroyed() {
+                 console.log('destroyed');
+             },
+         });
+         //  console.log(vm instanceof Vue);
+         //  console.log(vm.$children);
+         //  console.log(vm.$children[1] instanceof Vue);
+     </script>
+ </body>
+
+ </html>

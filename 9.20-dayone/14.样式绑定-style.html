@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循-内联样式style</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div :style='{border:borderStyle,width:widthStyle,height:heightStyle}'></div>
+        <div :style='objStyles'>two</div>
+        <div :style='[objStyles,overStyle]'></div>
+        <button @click='handle'>切换</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                borderStyle: '1px solid blue',
+                widthStyle: '100px',
+                heightStyle: '200px',
+                objStyles: {
+                    border: '1px solid blue',
+                    width: '200px',
+                    height: '100px'
+                },
+                overStyle: {
+                    border: '5px solid teal '
+                }
+            },
+            methods: {
+                handle: function (e) {
+                    this.heightStyle = '100px'
+                    this.objStyles.width = '100px'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

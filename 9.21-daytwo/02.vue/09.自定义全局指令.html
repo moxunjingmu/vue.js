@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-focus="'red'">
+    <div v-color="{background:'red',color:'blue'}">自定义指令</div>
+    <div v-color="{background:'red',color:'#fff'}">自定义指令</div>
+  </div>
+
+  <script>
+    Vue.directive('color', {
+      bind(el, binding) {
+        console.log(binding.value);
+        el.style.background = binding.value.background
+        el.style.color = binding.value.color
+        el.onclick = function () {
+          console.log('通过自定义指令注册click事件');
+        }
+      }
+    })
+    Vue.directive('focus', {
+      // el：添加指令的元素
+      bind(el, binding) {
+        // bind：将添加指令的元素插入到父元素之前调用
+        // 在bind函数中获取的添加指令的元素还在内存中，所以无法实现某些js效果
+        // console.log(el.parentNode)
+        // console.log('------------')
+        // el.focus()
+        // el.style.background = 'red'
+        console.log(binding);
+      },
+      inserted(el) {
+        // inserted：将添加指令的元素插入到父元素之后调用
+        //   console.log(el.parentNode)
+        //   el.style.width = '300px'
+        //   el.oninput = function(e){
+        //     console.log(e.target.value);
+        //   }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

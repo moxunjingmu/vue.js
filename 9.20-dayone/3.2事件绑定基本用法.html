@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莫循的主页</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-on:input='handleInput'>
+        <button @click='handleClick()'>btn</button>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                input: 'input 事件',
+                click: 'click 事件'
+            },
+            methods: {
+                handleInput: function () {
+                    console.log(this.input);
+                },
+                handleClick: function () {
+                    console.log(this.click);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

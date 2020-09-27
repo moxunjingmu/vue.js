@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/jquery.js"></script>
+  <script>
+    // promise发送请求
+    // then函数处理请求
+    function getData(url) {
+      return new Promise(function (resolve, reject) {
+        $.ajax({
+          type: 'get',
+          url,
+          success(res) {
+            resolve(res)
+          },
+          error() {
+            reject('请求失败--error')
+          }
+        })
+      })
+    }
+
+    // 后面的then处理前面promise实例发送的请求结果
+    getData('http://127.0.0.1:3000/data')
+      .then((data) => {
+        console.log(data);
+        return getData('http://127.0.0.1:3000/data1')
+      })
+      .then((data) => {
+        console.log(data);
+        return getData('http://127.0.0.1:3000/data2')
+      })
+      .then((data) => {
+        console.log(data);
+      })
+
+
+
+  </script>
+</body>
+
+</html>

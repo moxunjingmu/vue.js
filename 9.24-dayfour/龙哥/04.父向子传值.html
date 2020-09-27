@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 父组件给子组件绑定属性 -->
+    <my-com1 :msg="pmsg"></my-com1>
+    <hr>
+    <my-com2 :msg2="pmsg" num="pnum" :num='pnum' num="123" :num="123"></my-com2>
+  </div>
+
+  <script>
+    Vue.component('my-com1', {
+      // 1. 接收父组件传递的数据
+      props: ['msg'],
+      template: `<div>
+        <h3>my-com1</h3>
+        <div>{{ msg }}</div>
+      </div>`
+    })
+    Vue.component('my-com2', {
+      props:{
+        num:Number,
+        msg2:{
+          type:String, // 传递的数据类型
+          default:'默认值', // 默认数据
+          required:true, // 必填
+          validator(val){ // 传递数据的校验规则
+            return val.length > 10
+          }
+        }
+      },
+      template: `<div>
+        <h3>my-com2</h3>
+        <div>{{ msg2 }}</div>
+        <div>{{ num }}</div>
+      </div>`
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        pmsg:'父组件的pmsg123123',
+        pnum:123
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

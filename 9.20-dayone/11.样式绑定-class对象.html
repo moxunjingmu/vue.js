@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循-class对象</title>
+    <style>
+        .active {
+            border: 1px solid #8b1623;
+            width: 100px;
+            height: 100px;
+            background-color: #345;
+        }
+
+        .error {
+            border: 1px solid steelblue;
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+        }
+    </style>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-bind:class="{active:isActive,error:isError}"></div>
+
+
+        <button @click='handle'>切换</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isError: false
+            },
+            methods: {
+                handle: function (e) {
+                    this.isActive = !this.isActive;
+                    this.isError = !this.isError
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

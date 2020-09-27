@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 加v-bind 与 不加v-bind的区别 -->
+    <a href="url">百度</a>
+    <br /><br />
+    <a :href="url">百度</a>
+    <br /><br />
+    <input type="text" :value="val" v-bind:data-id="val" />
+    <hr />
+    <div class="cls">class1</div>
+    <div :class="cls">class2</div>
+    <div :class="'cls'">class3</div>
+    <div :class="cls + ' abc'">class4</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        cls: 'cls1',
+        val: '用户名123',
+        url: 'http://www.baidu.com'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

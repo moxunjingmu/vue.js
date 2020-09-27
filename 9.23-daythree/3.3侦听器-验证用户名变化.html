@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!--todo  数据变化时执行异步或开销较大的操作 -->
+    <div id="app">
+        <span>注册用户</span></br>
+
+        用户名:<input type="text" v-model='uname' @keyup.delete='de'>
+        <span>{{tip}}</span>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: '请输入用户名',
+                tip: ''
+            },
+            methods: {
+                de: function () {
+                    this.uname = ''
+                },
+                checkName(uname) {
+                    // 调用接口，但是可以使用定时任务的方式模拟接口调用
+                    setTimeout(() => {
+                        //模拟接口调用
+                        if (uname === 'admin') {
+                            this.tip = '用户名已经存在，请重新输入'
+                        } else {
+                            this.tip = '用户名可以使用'
+                        }
+                    }, 2000)
+                }
+            },
+            watch: {
+                //侦听器方法名与data属性名相同
+                uname(newVal, oldVal) {
+                    this.checkName(newVal);
+                    this.tip = '效验中。。。'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

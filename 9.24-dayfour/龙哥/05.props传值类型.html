@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com num1="pnum1" :num2="pnum2" num3="123" :num4="123" :num5="'123'" ></my-com>
+  </div>
+
+  <script>
+    Vue.component('my-com',{
+      props:{
+        num1:[String,Number],
+        num2:[String,Number],
+        num3:[String,Number],
+        num4:[String,Number],
+        num5:[String,Number],
+      },
+      template:`<div>
+        <h3>my-com</h3>
+        <div>{{num1}}</div>
+        <div>{{num2}}</div>
+        <div>{{num3}}</div>
+        <div>{{num4}}</div>
+        <div>{{num5}}</div>
+      </div>`,
+      created() {
+        console.log(this.num1);
+        console.log(typeof this.num1);
+        console.log('--------------');
+        console.log(this.num2);
+        console.log(typeof this.num2);
+        console.log('--------------');
+        console.log(this.num3);
+        console.log(typeof this.num3);
+        console.log('--------------');
+        console.log(this.num4);
+        console.log(typeof this.num4);
+        console.log('--------------');        
+        console.log(this.num5);
+        console.log(typeof this.num5);
+        console.log('--------------');
+      },
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        pnum1:'字符串',
+        pnum2:'123',
+        pnum3:123,
+        pnum4:123,
+        pnum5:123,
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

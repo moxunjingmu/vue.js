@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马邱彩萍</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <div>{{pmsg}}</div> -->
+        <!--       :menu-title -->
+        <menu-item :menu-title='ptitle'></menu-item>
+    </div>
+
+    <script>
+        Vue.component('third-com', {
+            props: {
+                testTile: String
+            },
+
+            template: '<div>{{testTile}}</div>'
+        })
+        Vue.component('menu-item', {
+            props: {
+                menuTitle: String
+            },
+            template: `<div>{{menuTitle}} <third-com testTile="hello"></third-com></div>`
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                ptitle: '动态绑定',
+                pmsg: '父组件内容'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

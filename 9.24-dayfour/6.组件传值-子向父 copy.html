@@ -1,0 +1,49 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <div>{{fa}}</div>
+         <my-son @sonevent="handle"></my-son>
+     </div>
+
+
+     <script>
+         Vue.component('my-son', {
+             template: `<div>
+                        <h3>{{sontwo}}</h3>
+                        <button @click="hanldes">子向父</button>
+                        </div>`,
+             data() {
+                 return {
+                     son: 'sonsonsonsonsonsonson',
+                     sontwo: 'sdafasdfjadfs'
+                 }
+             },
+             methods: {
+                 hanldes() {
+                     this.$emit('sonevent', this.son, this.sontwo)
+                 }
+             }
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {
+                 fa: 'lalalalalala'
+             },
+             methods: {
+                 handle(v1, v2) {
+                     this.fa = v1
+                 }
+             }
+         });
+     </script>
+ </body>
+
+ </html>

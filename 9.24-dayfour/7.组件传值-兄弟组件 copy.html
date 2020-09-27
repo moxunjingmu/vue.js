@@ -1,0 +1,73 @@
+ <!DOCTYPE html>
+ <html lang="zh-cn">
+
+ <head>
+     <meta charset="UTF-8">
+     <title>黑马莫循</title>
+     <script src="../vue.js"></script>
+ </head>
+
+ <body>
+     <div id="app">
+         <bro-a></bro-a>
+         <bro-b></bro-b>
+     </div>
+
+
+     <script>
+         let hub = new Vue();
+         Vue.component('bro-a', {
+             template: `   <div>
+             <h3>bro-a</h3>
+            <span>{{a}}</span>
+            <button @click="handleA">从a向b传值</button>
+            </div>`,
+             data() {
+                 return {
+                     a: 'aaaaaaaaaaaaaaaa'
+                 }
+             },
+             methods: {
+                 handleA() {
+                     hub.$emit('a-event', this.a)
+                 }
+             },
+             mounted() {
+                 hub.$on('b-event', (vl) => {
+                     this.a = vl
+                 })
+             }
+         })
+         Vue.component('bro-b', {
+             template: `   <div>
+             <h3>bro-b</h3>
+            <span>{{b}}</span>
+            <button @click="handleB">从b向a传值</button>
+            </div>`,
+             data() {
+                 return {
+                     b: 'bbbbbbbbbbbbbbbb'
+                 }
+             },
+             methods: {
+                 handleB() {
+                     hub.$emit('b-event', this.b)
+                 }
+             },
+             mounted() {
+                 hub.$on('a-event', (vl) => {
+                     this.b = vl
+                 })
+             }
+         })
+         var vm = new Vue({
+             el: '#app',
+             data: {},
+             methods: {
+                 handle: function (e) {}
+             }
+         });
+     </script>
+ </body>
+
+ </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+
+    .son {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+    }
+  </style>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="box" @click="handleFa">
+      <div class="son" @click="handle1"></div>
+      <a href="http://www.baidu.com" @click.stop.prevent="handle2">百度</a>
+    </div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        handleFa() {
+          console.log('box');
+        },
+        handle1() {
+          console.log('son');
+        },
+        handle2() {
+          console.log('linkA');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-on:input="hanldeInput">
+    <button @click="handleClick()">btn</button>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        input: 'input事件',
+        click: 'click事件'
+      },
+      methods: {
+        // input事件：当表单内容发生变化时，触发
+        hanldeInput() {
+          console.log(this.input)
+        },
+        handleClick() {
+          console.log(this.click)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

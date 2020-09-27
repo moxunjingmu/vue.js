@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>黑马莫循</title>
+    <!-- <script src="../vue.js"></script> -->
+</head>
+
+<body>
+    <div id="app"> </div>
+
+    <script>
+        const data = {
+            msg: 'MSG'
+        }
+        let val = ''
+        //数据劫持(控制)：监听数据状态
+        Object.defineProperty(data, 'msg', {
+            get() {
+                //当获取属性内容的时候执行get
+                console.log('get1');
+                return val;
+            },
+            set(newVal) {
+                //当为属性赋值的时候执行
+                console.log('set1');
+                // console.log(newVal);
+                val = newVal
+            }
+        })
+        console.log(data.msg);
+        data.msg = 123
+        console.log(data.msg);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- lazy：当失去焦点时，修改score的值；原理：将默认的input事件 设置为change事件 -->
+    <input type="text" v-model.lazy="score">
+    <div v-if="score>=90">A</div>
+    <div v-else-if="score>=70">B</div>
+    <div v-else-if="score>=60">C</div>
+    <div v-else>D</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        score: 100
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>
