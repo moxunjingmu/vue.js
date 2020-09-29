@@ -10,9 +10,15 @@
  <body>
      <div id="app">
          <my-com>
-             <div class="cls">传递的组件内容一
+
+             <div class="cls">
+                 jsdl
+                 <p>传递的组件内容一</p>
              </div>
+
              <h3>dslfjsdlfj</h3>
+             <h3>dslfjsdlfj</h3>
+             <h3>dslffj</h3>
          </my-com>
          <hr>
          <my-com>
@@ -25,7 +31,7 @@
          Vue.component('my-com', {
              template: ` <div class="my-com">
                <h3>my-com</h3>
-               <slot><slot></slot></slot>
+               <slot></slot>
                </div>`
          })
          var vm = new Vue({

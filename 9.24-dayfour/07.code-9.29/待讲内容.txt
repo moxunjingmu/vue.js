@@ -1,0 +1,5 @@
+1. 设置计算属性禁止缓存计算结果
+
+2. watch深度监听对象
+
+3.  forEach，find，findIndex，some，filter，map

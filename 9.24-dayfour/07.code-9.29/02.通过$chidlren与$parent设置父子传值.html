@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="handleFa">获取子组件</button>
+    <div>{{father}}</div>
+    <hr>
+    <my-son></my-son>
+  </div>
+
+  <script>
+    Vue.component('my-son', {
+      name:'Son',
+      data() {
+        return {
+          son: '儿砸'
+        }
+      },
+      template: `<div>
+        <h3>my-son</h3>
+        <div>{{son}}</div>
+        <button @click="handleSon">获取父组件</button>
+      </div>`,
+      methods:{
+        handleSon(){
+          console.log(this.$parent);
+          this.son = this.$parent.father
+          // this.$parent.father = this.son
+        }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        father: '我是粑粑'
+      },
+      methods: {
+        handleFa(){
+          console.log(this.$children);
+
+          // this.$children[0].son = this.father
+          this.father = this.$children[0].son
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
